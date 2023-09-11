@@ -1,0 +1,5 @@
+o programa aceita entrada padrão,
+é só executar python main.py < nome_do_arquivo.txt
+
+exemplo:
+python main.py < entrada-quintupla.txt
