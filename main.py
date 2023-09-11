@@ -2,7 +2,8 @@
 # Alisson, Ana, Francisco e Enzo.
 
 import sys
-from Quintuple import Quintuple
+#from Quintuple import Quintuple
+from transitions import Quadruple, Quintuple
 from ReversibleTuringMachine import ReversibleTuringMachine
 
 # Para rodar no windows:
