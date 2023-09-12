@@ -1,8 +1,7 @@
 # Grupo:
-# Alisson, Ana, Francisco e Enzo.
+# Alisson
 
 import sys
-#from Quintuple import Quintuple
 from transitions import Quadruple, Quintuple
 from ReversibleTuringMachine import ReversibleTuringMachine
 
