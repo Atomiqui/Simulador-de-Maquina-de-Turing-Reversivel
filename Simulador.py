@@ -3,7 +3,6 @@ from copy import copy
 
 '''
     TODO:
-
     * Separar em arquivos (organização)
     * Tentar implementar usando classes (simplificar)
     * Documentar direito
@@ -108,7 +107,6 @@ for i in range(4, 4 + int(num_transitions)):
 
 entry = content[-1]
 
-# Confirma o que foi lido
 print_mt_info(num_states, num_input_symbols, num_queue_symbols, num_transitions, str_states, input_symbols, queue_symbols, transitions)
 
 quadruples = create_quadruples(transitions)
