@@ -2,8 +2,8 @@
 # Alisson
 
 import sys
-from transitions import Quadruple, Quintuple
-from ReversibleTuringMachine import ReversibleTuringMachine
+from src.transitions import Quadruple, Quintuple
+from src.ReversibleTuringMachine import ReversibleTuringMachine
 
 # Para rodar no windows:
 
