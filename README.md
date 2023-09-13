@@ -37,8 +37,7 @@ Para realizar esse trabalho será necessária uma sequência lógica de ações:
 * Printar novamente para mostrar que é Reversível.
 
 
-### make_transitions:
-Este código Python define uma função chamada `make_transitions` que simula uma máquina de Turing. Vou explicar cada parte do código em detalhes:
+### `make_transitions`:
 
 1. **Definição da Função:**
    ```python
@@ -119,3 +118,61 @@ Este código Python define uma função chamada `make_transitions` que simula um
    - Retorna três valores: a fita de entrada final, o histórico das transições e a fita de saída final.
 
 No geral, esta função simula a execução de uma máquina de Turing com base nas quadruplas fornecidas e na entrada inicial, mantendo o controle das transições feitas e gerando uma fita de saída como resultado. A máquina de Turing é uma abstração teórica de um modelo de computação que pode realizar cálculos complexos e é uma base importante na teoria da computação.
+
+
+### `reverse_movement`
+
+
+1. **Definição da Função:**
+   ```python
+   def reverse_movement(history_tape, quadruples, input_tape, head_marker):
+   ```
+
+   - Esta função recebe quatro argumentos: `history_tape` (uma lista que contém o histórico de transições da máquina de Turing), `quadruples` (uma lista de quadruplas que descrevem as transições da máquina de Turing), `input_tape` (uma lista que representa a fita de entrada da máquina de Turing) e `head_marker` (a posição atual da cabeça de leitura/escrita na fita).
+
+2. **Inicialização de Variáveis:**
+   ```python
+   i = len(history_tape) - 1
+   ```
+
+   - `i` é inicializado com o índice do último elemento na lista `history_tape`. Isso permite percorrer o histórico de transições da máquina de Turing em ordem reversa.
+
+3. **Iteração sobre o Histórico de Transições:**
+   ```python
+   while i >= 0:
+   ```
+
+   - O loop executa enquanto `i` for maior ou igual a 0, ou seja, enquanto houver elementos no histórico para processar.
+
+4. **Obtenção do Nome da Quadrupla a partir do Histórico:**
+   ```python
+   name = history_tape[i]
+   ```
+
+   - `name` é definido como o valor na posição `i` da lista `history_tape`, que representa o número da quadrupla no histórico.
+
+5. **Verificação da Direção da Transição:**
+   ```python
+   if quadruples[name][3] == "R":
+       head_marker -= 1
+   elif quadruples[name][3] == "L":
+       head_marker += 1
+   else:
+       input_tape[head_marker] = quadruples[name][1]
+   ```
+
+   - Verifica a direção da transição da quadrupla correspondente àquela etapa no histórico.
+   - Se a direção for "R" (para a direita), decrementa a posição da cabeça de leitura/escrita (`head_marker`) em 1, movendo a cabeça para a direita.
+   - Se a direção for "L" (para a esquerda), incrementa a posição da cabeça de leitura/escrita (`head_marker`) em 1, movendo a cabeça para a esquerda.
+   - Se a direção for diferente de "R" ou "L", significa que a quadrupla escreve um novo símbolo na fita, e esse símbolo é armazenado na posição atual da fita de entrada (`input_tape`) indicada por `head_marker`.
+
+6. **Atualização do Índice e Remoção do Histórico:**
+   ```python
+   i -= 1
+   history_tape.pop()
+   ```
+
+   - Decrementa o índice `i` para processar a próxima etapa no histórico em ordem reversa.
+   - Remove o último elemento da lista `history_tape`, pois ele já foi processado.
+
+Em resumo, a função `reverse_movement` reverte as transições feitas pela máquina de Turing, seguindo o histórico de transições em ordem reversa. Isso permite "desfazer" as ações da máquina e retornar à sua configuração anterior, antes de uma determinada transição ter sido aplicada. Essa função pode ser útil em cenários onde você deseja reverter a máquina de Turing para uma etapa anterior em sua execução.
