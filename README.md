@@ -37,6 +37,14 @@ Para realizar esse trabalho será necessária uma sequência lógica de ações:
 * Printar novamente para mostrar que é Reversível.
 
 
+## Instruções:
+
+Para rodar use algo como:
+```
+python Simulador.py < entrada-quintupla.txt
+```
+
+
 ### `make_transitions`:
 
 1. **Definição da Função:**
