@@ -44,6 +44,10 @@ Para rodar use algo como:
 python Simulador.py < entrada-quintupla.txt
 ```
 
+## ToDo:
+* Remover o print da máquina lida;
+* Printar cada um dos passos da máquina.
+
 
 ### `make_transitions`:
 
