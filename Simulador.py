@@ -39,6 +39,8 @@ def make_transitions(states, input_symbols, queue_symbols, quadruples, entry):
     output_tape = []
     final_state = quadruples[-1][2]
 
+    step = 0
+
     while state_marker != final_state:
         nt = 0
         for quadruple in quadruples:
@@ -52,6 +54,14 @@ def make_transitions(states, input_symbols, queue_symbols, quadruples, entry):
                     else:
                         input_tape[head_marker] = quadruple[3]
                     history_tape.append(nt)
+                    step += 1
+
+                    # Print das transições
+                    print(f"Passo {step}:")
+                    print("Histórico:", history_tape)
+                    print("Output:", output_tape)
+                    print("---")
+
             nt += 1
 
     output_tape = copy(input_tape)
@@ -60,6 +70,8 @@ def make_transitions(states, input_symbols, queue_symbols, quadruples, entry):
 # Responsável pela parte reversível da MT.
 def reverse_movement(history_tape, quadruples, input_tape, head_marker):
     i = len(history_tape) - 1
+    step = 0
+
     while i >= 0:
         name = history_tape[i]
         if quadruples[name][3] == "R":
@@ -70,6 +82,13 @@ def reverse_movement(history_tape, quadruples, input_tape, head_marker):
             input_tape[head_marker] = quadruples[name][1]
         i -= 1
         history_tape.pop()
+        step += 1
+
+        # Print da reversão
+        print(f"Passo {step} da reversão:")
+        print("Histórico:", history_tape)
+        print("Output:", output_tape)
+        print("---")
 
 # Printa a MT lida para confirmar que está lendo corretamente.
 def print_mt_info(num_states, num_input_symbols, num_queue_symbols, num_transitions, str_states, input_symbols, queue_symbols, transitions):
@@ -107,15 +126,17 @@ for i in range(4, 4 + int(num_transitions)):
 
 entry = content[-1]
 
-print_mt_info(num_states, num_input_symbols, num_queue_symbols, num_transitions, str_states, input_symbols, queue_symbols, transitions)
+# print_mt_info(num_states, num_input_symbols, num_queue_symbols, num_transitions, str_states, input_symbols, queue_symbols, transitions)
 
 quadruples = create_quadruples(transitions)
 
 input_tape, history_tape, output_tape = make_transitions(num_states, input_symbols, queue_symbols, quadruples, entry)
 
+print("\nApós as transições:\n")
 print("Entrada:", input_tape)
 print("Histórico:", history_tape)
 print("Output:", output_tape)
+print("\n")
 
 reverse_movement(history_tape, quadruples, input_tape, 0)
 
