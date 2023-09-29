@@ -1,3 +1,5 @@
+# Grupo: Alisson Costa Schmidt, Gabriel e Leonardo.
+
 import sys
 from copy import copy
 
