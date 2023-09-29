@@ -48,6 +48,20 @@ python Simulador.py < entrada-quintupla.txt
 * Remover o print da máquina lida;
 * Printar cada um dos passos da máquina.
 
+## Quadruplas e Quintuplas:
+
+1. A função `parse_quintuple(transition)` é responsável por extrair informações de uma única transição em formato de string. Uma transição é da forma `(estado_atual, símbolo_lido) = (próximo_estado, símbolo_a_ser_escrito, movimento_da_cabeça)`. A função `parse_quintuple` divide essa string em partes para obter as informações relevantes, ou seja, `estado_atual`, `símbolo_lido`, `próximo_estado`, `símbolo_a_ser_escrito` e `movimento_da_cabeça`. Isso é feito usando operações de string como `split` e índices.
+
+2. A função `create_quadruples(transitions)` utiliza a função `parse_quintuple` para criar uma lista de quadruplas a partir das transições da MT. Cada transição é processada para gerar duas quadruplas:
+   - A primeira quadrupla (`q1`) contém as informações do estado atual, símbolo lido, próximo estado (com um '*' adicionado) e símbolo a ser escrito. O '*' no próximo estado é usado para indicar que esta quadrupla é a primeira de um par que representa uma transição.
+   - A segunda quadrupla (`q2`) contém as informações do próximo estado (com um '*' adicionado), símbolo a ser escrito, próximo estado (sem o '*') e movimento da cabeça da fita. Esta quadrupla representa a segunda metade da transição.
+   - Ambas as quadruplas são adicionadas à lista de quadruplas `quadruples`.
+
+3. No código principal, a lista de transições é lida a partir de um arquivo de entrada e armazenada na lista `transitions`.
+
+4. A função `create_quadruples` é chamada com a lista de transições como argumento, e ela cria a lista `quadruples` que contém as quadruplas correspondentes a todas as transições da MT.
+
+Portanto, o código gera as quadruplas dividindo cada transição da MT em duas partes e armazenando essas partes em pares de quadruplas, que são usados para simular o comportamento reversível da MT.
 
 ### `make_transitions`:
 
