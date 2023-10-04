@@ -75,13 +75,13 @@ def reverse_movement(history_tape, quadruples, input_tape, head_marker):
     step = 0
 
     while i >= 0:
-        name = history_tape[i]
-        if quadruples[name][3] == "R":
+        transition = history_tape[i]
+        if quadruples[transition][3] == "R":
             head_marker -= 1
-        elif quadruples[name][3] == "L":
+        elif quadruples[transition][3] == "L":
             head_marker += 1
         else:
-            input_tape[head_marker] = quadruples[name][1]
+            input_tape[head_marker] = quadruples[transition][1]
         i -= 1
         history_tape.pop()
         step += 1
