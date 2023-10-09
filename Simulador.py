@@ -3,15 +3,6 @@
 import sys
 from copy import copy
 
-'''
-    TODO:
-    * Separar em arquivos (organização)
-    * Tentar implementar usando classes (simplificar)
-    * Documentar direito
-'''
-
-# Recebe um transição em formato de String e extrai informações.
-# retorna: estado atual, símbolo lido, próximo estado, símbolo a ser escrito e o movimento da cabeça da fita.
 def parse_quintuple(transition):
     current_state, read_symbol = transition[transition.index("(") + 1:transition.index(")")].split(",")
     transition = transition[transition.index("=") + 1:]
@@ -19,8 +10,6 @@ def parse_quintuple(transition):
 
     return current_state, read_symbol, next_state, write_symbol, head_movement
 
-# parse_quintuple é usada em cada uma das transições para criar uma lista de quadruplas.
-# Retorna: uma lista de quadruplas.
 def create_quadruples(transitions):
     quadruples = []
     for transition in transitions:
@@ -30,9 +19,7 @@ def create_quadruples(transitions):
         quadruples.extend([q1, q2])
     return quadruples
 
-# Simula a MT reversível.
-# Retorna: entrada da fita, o histórico das transições e a saída da fita.
-def make_transitions(states, input_symbols, queue_symbols, quadruples, entry):
+def make_transitions(quadruples, entry):
     state_marker = quadruples[0][0]
     head_marker = 0
 
@@ -67,21 +54,21 @@ def make_transitions(states, input_symbols, queue_symbols, quadruples, entry):
             nt += 1
 
     output_tape = copy(input_tape)
-    return input_tape, history_tape, output_tape
+    accepted = state_marker == final_state  # Check if in final state
+    return input_tape, history_tape, output_tape, accepted
 
-# Responsável pela parte reversível da MT.
 def reverse_movement(history_tape, quadruples, input_tape, head_marker):
     i = len(history_tape) - 1
     step = 0
 
     while i >= 0:
-        transition = history_tape[i]
-        if quadruples[transition][3] == "R":
+        q = history_tape[i]
+        if quadruples[q][3] == "R":
             head_marker -= 1
-        elif quadruples[transition][3] == "L":
+        elif quadruples[q][3] == "L":
             head_marker += 1
         else:
-            input_tape[head_marker] = quadruples[transition][1]
+            input_tape[head_marker] = quadruples[q][1]
         i -= 1
         history_tape.pop()
         step += 1
@@ -102,11 +89,6 @@ def print_mt_info(num_states, num_input_symbols, num_queue_symbols, num_transiti
     for transition in transitions:
         print(transition)
 
-
-# --- Main ---
-
-# Abre o arquivo
-
 ## Para rodar no Windows:
 ## Comente as próximas duas linhas e
 file = sys.stdin
@@ -116,7 +98,6 @@ content = file.readlines()
 # with open('entrada-quintupla.txt', 'r') as file:
 #     content = file.readlines()
 
-# Lê as informações
 num_states, num_input_symbols, num_queue_symbols, num_transitions = content[0].split()
 str_states = content[1].split()
 input_symbols = content[2].split()
@@ -132,7 +113,12 @@ entry = content[-1]
 
 quadruples = create_quadruples(transitions)
 
-input_tape, history_tape, output_tape = make_transitions(num_states, input_symbols, queue_symbols, quadruples, entry)
+input_tape, history_tape, output_tape, accepted = make_transitions(quadruples, entry)
+
+if accepted:
+    print("\nAceitou!")
+else:
+    print("\nRejeitou!")
 
 print("\nApós as transições:\n")
 print("Entrada:", input_tape)
