@@ -44,10 +44,6 @@ Para rodar use algo como:
 python Simulador.py < entrada-quintupla.txt
 ```
 
-## ToDo:
-* Remover o print da máquina lida;
-* Printar cada um dos passos da máquina.
-
 ## Quadruplas e Quintuplas:
 
 1. A função `parse_quintuple(transition)` é responsável por extrair informações de uma única transição em formato de string. Uma transição é da forma `(estado_atual, símbolo_lido) = (próximo_estado, símbolo_a_ser_escrito, movimento_da_cabeça)`. A função `parse_quintuple` divide essa string em partes para obter as informações relevantes, ou seja, `estado_atual`, `símbolo_lido`, `próximo_estado`, `símbolo_a_ser_escrito` e `movimento_da_cabeça`. Isso é feito usando operações de string como `split` e índices.
